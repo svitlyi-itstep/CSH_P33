@@ -50,13 +50,13 @@ namespace Game
             Console.WriteLine($" Раса: {this.race}");
         }
 
-        public int TakeDamage(int damage)
+        public virtual int TakeDamage(int damage)
         {
             this.health = Math.Max(this.health - damage, 0);
             return damage;
         }
 
-        public int Attack(Character target)
+        public virtual int Attack(Character target)
         {
             Random rnd = new Random(Convert.ToInt32(DateTimeOffset.Now.ToUnixTimeSeconds()));
             int final_damage = Math.Max(this.damage + rnd.Next(-3, 3), 0);
@@ -71,16 +71,27 @@ namespace Game
 
     class Berserk : Character
     {
+        bool lastChance = true;        
         public Berserk(string name, int health, int damage, int defence, CharacterRace race)
             : base(name, health, damage, defence, race) { }
         public Berserk() : this("Jonny", 100, 5, 0, CharacterRace.Human) { }
 
-        public new int Attack(Character target)
+        public override int Attack(Character target)
         {
             Random rnd = new Random(Convert.ToInt32(DateTimeOffset.Now.ToUnixTimeSeconds()));
             int final_damage = this.health < 50 ? (int)(this.damage * 1.5) : this.damage;
             final_damage = Math.Max(final_damage + rnd.Next(-3, 3), 0);
             return target.TakeDamage(final_damage);
+        }
+
+        public override int TakeDamage(int damage)
+        {
+            this.health = Math.Max(this.health - damage, 0);
+            if(this.health <= 0 && this.lastChance) {
+                this.health = 1;
+                this.lastChance = false;
+            }
+            return damage;
         }
     }
 }
