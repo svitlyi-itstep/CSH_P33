@@ -11,11 +11,11 @@ namespace Game
 
     class Character
     {
-        public string? name;
-        int health;
-        int damage;
-        int defence;
-        CharacterRace race;
+        protected string? name;
+        protected int health;
+        protected int damage;
+        protected int defence;
+        protected CharacterRace race;
 
         public CharacterRace Race
         {
@@ -29,6 +29,7 @@ namespace Game
             set { this.health = Math.Max(value, 0); }
         }
 
+        public string? Name { get { return this.name; } set { this.name = value; } }
         public Character(string name, int health, int damage, int defence, CharacterRace race)
         {
             this.name = name;
@@ -73,5 +74,13 @@ namespace Game
         public Berserk(string name, int health, int damage, int defence, CharacterRace race)
             : base(name, health, damage, defence, race) { }
         public Berserk() : this("Jonny", 100, 5, 0, CharacterRace.Human) { }
+
+        public new int Attack(Character target)
+        {
+            Random rnd = new Random(Convert.ToInt32(DateTimeOffset.Now.ToUnixTimeSeconds()));
+            int final_damage = this.health < 50 ? (int)(this.damage * 1.5) : this.damage;
+            final_damage = Math.Max(final_damage + rnd.Next(-3, 3), 0);
+            return target.TakeDamage(final_damage);
+        }
     }
 }
