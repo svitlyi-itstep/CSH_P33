@@ -29,6 +29,12 @@ namespace Game
             set { this.health = Math.Max(value, 0); }
         }
 
+        public int Damage
+        {
+            get { return this.damage; }
+            set { this.damage = Math.Max(value, 0); }
+        }
+
         public string? Name { get { return this.name; } set { this.name = value; } }
         public Character(string name, int health, int damage, int defence, CharacterRace race)
         {
