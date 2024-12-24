@@ -1,4 +1,7 @@
-﻿namespace Game.Spells
+﻿using System.ComponentModel;
+using Game;
+
+namespace Game.Spells
 {
     abstract class Spell
     {
@@ -18,6 +21,18 @@
         public override void Cast(Character caster, Character target)
         {
             target.TakeDamage(this.damage);
+        }
+
+    }
+
+    class VampiricStrike : Spell
+    {
+        double healRate = 0.5;
+        public VampiricStrike() : base("Удар вампіра") { }
+        public override void Cast(Character caster, Character target)
+        {
+            int damageDone = target.TakeDamage(caster.Damage);
+            caster.Health += Convert.ToInt32(damageDone * this.healRate);
         }
 
     }

@@ -15,6 +15,8 @@ Console.WriteLine();
 Character player2 = new Character("James", 90, 8, 0, CharacterRace.Ork);
 player2.Print();
 
+Spell fireball = new Fireball();
+
 while (player1.IsAlive() && player2.IsAlive())
 {
     Console.WriteLine();
@@ -24,6 +26,9 @@ while (player1.IsAlive() && player2.IsAlive())
     int player2_damage = player2.Attack(player1);
     Console.WriteLine($"{player2.Name} атакував {player1.Name} і наніс {player2_damage} шкоди.");
     Console.WriteLine($"У {player1.Name} залишилось {player1.Health} здоров\'я.");
+
+    player1.CastRandomSpell(player2);
+    player2.CastRandomSpell(player1);
     Thread.Sleep(500);
 }
 

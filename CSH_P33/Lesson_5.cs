@@ -28,8 +28,9 @@
 //        Console.OutputEncoding = UTF8Encoding.UTF8;
 //        Console.InputEncoding = UTF8Encoding.UTF8;
 
-//        Shape[] shapes = { new Square(4), new Square(9), new Rectangle(4, 7), new Rectangle(2, 5) };
-//        foreach (Shape shape in shapes) 
+//        Shape[] shapes = { new Square(4), new Square(9), new Rectangle(4, 7), 
+//            new Rectangle(2, 5) };
+//        foreach (Shape shape in shapes)
 //        {
 //            Console.WriteLine($"Площа фігури {shape} дорівнює {shape.GetArea()}");
 //        }

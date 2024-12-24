@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Game.Spells;
+using System.ComponentModel;
 
 namespace Game
 {
@@ -16,6 +17,7 @@ namespace Game
         protected int damage;
         protected int defence;
         protected CharacterRace race;
+        protected Spell[] spells = { new Fireball(), new VampiricStrike() };
 
         public CharacterRace Race
         {
@@ -46,6 +48,14 @@ namespace Game
         }
 
         public Character() : this("Jonny", 100, 5, 0, CharacterRace.Human) { }
+
+        public virtual void CastRandomSpell(Character target, Random? rnd = null)
+        {
+            if(rnd == null) rnd = new Random();
+            Spell spell = this.spells[rnd.Next(0, this.spells.Length)];
+            spell.Cast(this, target);
+            Console.WriteLine($"Застосовано заклинання {spell.Name} до {target.Name}");
+        }
 
         public void Print()
         {
