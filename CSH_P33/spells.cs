@@ -17,6 +17,7 @@
         public Fireball() : base("Вогняна куля") { }
         public override void Cast(Character caster, Character target)
         {
+            caster.Damage += 1;
             target.TakeDamage(this.damage);
         }
 
