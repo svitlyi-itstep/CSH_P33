@@ -2,11 +2,7 @@
 
 namespace Chess
 {
-    enum Player
-    {
-        Black,
-        White
-    }
+    enum Player { Black, White }
 
     abstract class Chessmen
     {
