@@ -51,14 +51,58 @@
         }
     }
 
+    class Group
+    {
+        string? name;
+        List<Student> students;
+        double totalAvgGrade;
+
+        public string? Name { get { return this.name; } set { this.name = value; } }
+        public List<Student> Students { get { return this.students; } }
+        public double TotalAvgGrade { get { return this.totalAvgGrade; } }
+
+        public Group(string? name, Student[] students) 
+        {
+            this.name = name;
+            this.students = new List<Student>(students);
+            this.CountTotalAvgGrade();
+        }
+        public Group(string? name)
+        {
+            this.name = name;
+            this.students = new List<Student>();
+            this.totalAvgGrade = 0;
+        }
+        public Group() : this("Group") { }
+
+        public double CountTotalAvgGrade()
+        {
+            List<double> avgGrades = new List<double>();
+            foreach(var student in this.students) { avgGrades.Add(student.CountAvgGrade()); }
+            if(avgGrades.Count == 0)
+            {
+                this.totalAvgGrade = 0;
+                return 0;
+            }
+            this.totalAvgGrade = (double)avgGrades.Sum() / avgGrades.Count;
+            return this.totalAvgGrade;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.name} ({this.totalAvgGrade}):\n  {String.Join("\n  ", this.students)}";
+        }
+
+    }
+
     internal class Lesson_7
     {
         static public void Main(string[] args)
         {
-            Student student = new Student("John", new int[] { 4, 3, 6, 1 });
-            student.Grades.Add(5);
-            student.CountAvgGrade();
-            Console.WriteLine(student);
+            Student student1 = new Student("John", new int[] { 4, 3, 6, 1 });
+            Student student2 = new Student("Max", new int[] { 8, 9, 7, 5 });
+            Group gr1 = new Group("GR1", new Student[] { student1, student2 });
+            Console.WriteLine(gr1);
         }
         
     }
