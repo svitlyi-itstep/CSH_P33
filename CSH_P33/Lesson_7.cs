@@ -1,4 +1,6 @@
-﻿namespace CSH_P33
+﻿using System.Collections;
+
+namespace CSH_P33
 {
 
     // АГРЕГАЦІЯ ТА КОМПОЗИЦІЯ
@@ -51,7 +53,7 @@
         }
     }
 
-    class Group
+    class Group: IEnumerable
     {
         string? name;
         List<Student> students;
@@ -93,17 +95,27 @@
             return $"{this.name} ({this.totalAvgGrade}):\n  {String.Join("\n  ", this.students)}";
         }
 
+        public IEnumerator GetEnumerator()
+        {
+            return this.students.GetEnumerator();
+        }
+
     }
 
-    internal class Lesson_7
-    {
-        static public void Main(string[] args)
-        {
-            Student student1 = new Student("John", new int[] { 4, 3, 6, 1 });
-            Student student2 = new Student("Max", new int[] { 8, 9, 7, 5 });
-            Group gr1 = new Group("GR1", new Student[] { student1, student2 });
-            Console.WriteLine(gr1);
-        }
-        
-    }
+    //internal class Lesson_7
+    //{
+    //    static public void Main(string[] args)
+    //    {
+    //        Student student1 = new Student("John", new int[] { 4, 3, 6, 1 });
+    //        Student student2 = new Student("Max", new int[] { 8, 9, 7, 5 });
+    //        Group gr1 = new Group("GR1", new Student[] { student1, student2 });
+    //        // Console.WriteLine(gr1);
+    //        foreach(var student in gr1)
+    //        {
+    //            Console.WriteLine(student);
+
+    //        }
+    //    }
+
+    //}
 }
