@@ -7,3 +7,17 @@
 У методі Main класу Program створити об`єкти усіх трьох класів (Square, 
 Rectangle та Circle) та викликати для них метод ShowOnScreen 
 (за прикладом виклику для класу Square).
+
+
+https://github.com/svitlyi-itstep/CSH_P33
+
+
+Додати клас Diamond (Ромб), який має бути успадкований від класу Shape 
+та реалізовувати інтерфейс IDrawable.
+
+
+Додати реалізацію IComparable до всіх класів фігур (Square, 
+Rectangle та Circle). У методі Main класу Program відсортувати
+масив фігур:
+
+	Array.Sort(shapes);

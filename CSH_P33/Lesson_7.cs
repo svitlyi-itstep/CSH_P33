@@ -7,7 +7,7 @@ namespace CSH_P33
     // Студент: ім'я, список оцінок, середній бал
     //      Розрахунок середнього балу
     //      Подача інформації про студента у вигляді рядка
-    class Student
+    class Student: IComparable
     {
         // 1. Перелічення полів та властивостей класу
         string? name;
@@ -50,6 +50,15 @@ namespace CSH_P33
         public override string ToString()
         {
             return $"{this.name} ({this.avgGrade}): {String.Join(", ", this.grades)}";
+        }
+
+        public int CompareTo(object obj)
+        {
+            if(obj is Student)
+            {
+                return this.Name.CompareTo((obj as Student).Name);
+            }
+            throw new NotImplementedException();
         }
     }
 
@@ -100,17 +109,26 @@ namespace CSH_P33
             return this.students.GetEnumerator();
         }
 
+        public void Sort()
+        {
+            this.students.Sort();
+        }
+
     }
 
     //internal class Lesson_7
     //{
     //    static public void Main(string[] args)
     //    {
-    //        Student student1 = new Student("John", new int[] { 4, 3, 6, 1 });
-    //        Student student2 = new Student("Max", new int[] { 8, 9, 7, 5 });
-    //        Group gr1 = new Group("GR1", new Student[] { student1, student2 });
+    //        Student student1 = new Student("Max", new int[] { 4, 3, 6, 1 });
+    //        Student student2 = new Student("John", new int[] { 8, 9, 7, 5 });
+    //        Student student3 = new Student("Albert", new int[] { 8, 9, 7, 5 });
+            
+    //        Group gr1 = new Group("GR1", new Student[] { student1, student2, student3 });
+    //        gr1.Sort();
+
     //        // Console.WriteLine(gr1);
-    //        foreach(var student in gr1)
+    //        foreach (var student in gr1)
     //        {
     //            Console.WriteLine(student);
 

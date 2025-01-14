@@ -10,7 +10,7 @@ abstract class Shape
     public abstract double GetArea();
 }
 
-class Square : Shape, IDrawable
+class Square : Shape, IDrawable, IComparable
 {
     double side;
     public Square(double side) { this.side = side; }
@@ -24,6 +24,14 @@ class Square : Shape, IDrawable
                 Console.Write("* ");
             Console.WriteLine();
         }
+    }
+    public int CompareTo(object obj)
+    {
+        if(obj is Shape)
+        {
+            return (int)this.GetArea() - (int)(obj as Shape).GetArea();
+        }
+        throw new NotImplementedException();
     }
 }
 
@@ -55,6 +63,9 @@ class Program
 
         Shape[] shapes = { new Square(4), new Square(9), new Rectangle(4, 7),
             new Rectangle(2, 5) };
+
+        Array.Sort(shapes);
+
         foreach (Shape shape in shapes)
         {
             Console.WriteLine($"Площа фігури {shape} дорівнює {shape.GetArea()}");
