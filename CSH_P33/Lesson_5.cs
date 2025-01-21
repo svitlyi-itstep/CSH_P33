@@ -44,31 +44,31 @@ class Rectangle : Shape
 }
 
 
-class Program
-{
-    public static void ShowOnScreen(IDrawable shape, ConsoleColor color)
-    {
-        Console.ForegroundColor = color;
-        shape.Draw();
-        Console.ResetColor();
-    }
+//class Program
+//{
+//    public static void ShowOnScreen(IDrawable shape, ConsoleColor color)
+//    {
+//        Console.ForegroundColor = color;
+//        shape.Draw();
+//        Console.ResetColor();
+//    }
 
-    public static void Main(string[] args)
-    {
-        Console.OutputEncoding = UTF8Encoding.UTF8;
-        Console.InputEncoding = UTF8Encoding.UTF8;
+//    public static void Main(string[] args)
+//    {
+//        Console.OutputEncoding = UTF8Encoding.UTF8;
+//        Console.InputEncoding = UTF8Encoding.UTF8;
 
-        Square s = new Square(4);
-        ShowOnScreen(s, ConsoleColor.Red);
+//        Square s = new Square(4);
+//        ShowOnScreen(s, ConsoleColor.Red);
 
-        Shape[] shapes = { new Square(4), new Square(9), new Rectangle(4, 7),
-            new Rectangle(2, 5) };
+//        Shape[] shapes = { new Square(4), new Square(9), new Rectangle(4, 7),
+//            new Rectangle(2, 5) };
 
-        Array.Sort(shapes);
+//        Array.Sort(shapes);
 
-        foreach (Shape shape in shapes)
-        {
-            Console.WriteLine($"Площа фігури {shape} дорівнює {shape.GetArea()}");
-        }
-    }
-}
+//        foreach (Shape shape in shapes)
+//        {
+//            Console.WriteLine($"Площа фігури {shape} дорівнює {shape.GetArea()}");
+//        }
+//    }
+//}
