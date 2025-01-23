@@ -20,6 +20,30 @@ namespace CSH_P33
         public Oblast() : this(0, "") { }
     }
 
+    class Alert
+    {
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
+        [JsonPropertyName("location_title")]
+        public int LocationTitle { get; set; }
+        [JsonPropertyName("alert_type")]
+        public int AlertType { get; set; }
+        [JsonPropertyName("location_oblast_uid")]
+        public int LocationOblastUid { get; set; }
+
+        public override string ToString()
+        {
+            return $"Alert(Id={this.Id}, LocationTitle={this.LocationTitle}, " +
+                $"AlertType={this.AlertType}, LocationOblastUid={this.LocationOblastUid})";
+        }
+    }
+
+    class AlertsList
+    {
+        [JsonPropertyName("alerts")]
+        public List<Alert> Alerts { get; set; }
+    }
+
     class AirAlertMap
     {
         static List<Oblast> regions = new List<Oblast>()
@@ -60,7 +84,7 @@ namespace CSH_P33
 
         static int[,] map = new int[mapHeight, mapWidth]
             {
-                {0, 0, 0, 0, 31, 0, 0, 0 },
+                {0, 3, 0, 0, 31, 0, 0, 0 },
                 {0, 0, 0, 0, 0, 0, 0, 0 },
                 {0, 0, 0, 0, 0, 0, 0, 0 },
                 {0, 0, 0, 0, 0, 0, 0, 0 },
@@ -77,6 +101,24 @@ namespace CSH_P33
             return name.Length > length ? name.Substring(0, length - 1) + "…" : name;
         }
 
+        public static AlertsList? GetAlerts()
+        {
+            var httpClient = new HttpClient();
+            string url = "https://4fe0-85-198-148-246.ngrok-free.app";
+            var response = httpClient.GetAsync(url).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var asJson = response.Content.ReadAsStringAsync().Result;
+                Console.WriteLine(asJson);
+                return JsonSerializer.Deserialize<AlertsList>(asJson);
+            }
+            else
+            {
+                Console.WriteLine(response.StatusCode.ToString());
+                return null;
+            }
+        }
+
         public static void DrawMap()
         {
             for (int column = 0; column < mapWidth; column++)
@@ -85,6 +127,11 @@ namespace CSH_P33
                 if (map[0, column] == 0)
                 {
                     Console.BackgroundColor = ConsoleColor.Black;
+                }
+                else if (regions[map[0, column]].IsAlert)
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Black;
                 }
                 else
                 {
@@ -102,6 +149,12 @@ namespace CSH_P33
                 if (map[0, column] == 0)
                 {
                     Console.BackgroundColor = ConsoleColor.Black;
+                }
+                else if (regions[map[0, column]].IsAlert)
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    region_name = ShortenName(regions[map[0, column]].Name, cellWidth);
                 }
                 else
                 {
@@ -121,6 +174,11 @@ namespace CSH_P33
                 {
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
+                else if (regions[map[0, column]].IsAlert)
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                }
                 else
                 {
                     Console.BackgroundColor = ConsoleColor.Gray;
@@ -137,9 +195,8 @@ namespace CSH_P33
             Console.OutputEncoding = UTF8Encoding.UTF8;
             Console.InputEncoding = UTF8Encoding.UTF8;
 
+            regions[3].IsAlert = true;
             DrawMap();
-            
-
         }
     }
 }
