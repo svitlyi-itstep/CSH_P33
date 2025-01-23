@@ -31,9 +31,7 @@ namespace CSH_P33
         public static async Task GetAlerts()
         {
             var httpClient = new HttpClient();
-
             string url = "https://92e8-85-198-148-245.ngrok-free.app/";
-
             var response = await httpClient.GetAsync(url);
             if (response.IsSuccessStatusCode)
             {
@@ -59,11 +57,8 @@ namespace CSH_P33
             //    Console.WriteLine(fact + "\n");
             //}
 
-                foreach (var fact in facts.data)
-                {
-                    Console.WriteLine(fact);
-                }
-            }
+            /* Вивести на екран перелік областей, в яких зараз повітряна тривога */
+            
         }
     }
 }
