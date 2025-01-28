@@ -10,6 +10,8 @@ namespace CSH_P33.DeckOfCardsAPI
             Console.WriteLine(deck.Id);
             Console.WriteLine(deck.Remaining);
             Console.WriteLine(deck.Shuffled);
+
+            List<int> nums = new List<int>();
         }
     }
 }
