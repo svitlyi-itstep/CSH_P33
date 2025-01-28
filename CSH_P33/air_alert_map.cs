@@ -25,9 +25,9 @@ namespace CSH_P33
         [JsonPropertyName("id")]
         public int Id { get; set; }
         [JsonPropertyName("location_title")]
-        public int LocationTitle { get; set; }
+        public string LocationTitle { get; set; }
         [JsonPropertyName("alert_type")]
-        public int AlertType { get; set; }
+        public string AlertType { get; set; }
         [JsonPropertyName("location_oblast_uid")]
         public int LocationOblastUid { get; set; }
 
@@ -84,7 +84,7 @@ namespace CSH_P33
 
         static int[,] map = new int[mapHeight, mapWidth]
             {
-                {0, 3, 0, 0, 31, 0, 0, 0 },
+                {0, 3, 0, 0, 31, 0, 0, 16 },
                 {0, 0, 0, 0, 0, 0, 0, 0 },
                 {0, 0, 0, 0, 0, 0, 0, 0 },
                 {0, 0, 0, 0, 0, 0, 0, 0 },
@@ -109,7 +109,6 @@ namespace CSH_P33
             if (response.IsSuccessStatusCode)
             {
                 var asJson = response.Content.ReadAsStringAsync().Result;
-                Console.WriteLine(asJson);
                 return JsonSerializer.Deserialize<AlertsList>(asJson);
             }
             else
@@ -190,13 +189,20 @@ namespace CSH_P33
             Console.WriteLine();
         }
 
-        public static void Main(string[] args)
-        {
-            Console.OutputEncoding = UTF8Encoding.UTF8;
-            Console.InputEncoding = UTF8Encoding.UTF8;
+        //public static void Main(string[] args)
+        //{
+        //    Console.OutputEncoding = UTF8Encoding.UTF8;
+        //    Console.InputEncoding = UTF8Encoding.UTF8;
 
-            regions[3].IsAlert = true;
-            DrawMap();
-        }
+        //    AlertsList alerts = GetAlerts();
+        //    foreach(Alert alert in alerts.Alerts) {
+        //        if (alert.LocationOblastUid >= 0
+        //            && alert.LocationOblastUid < regions.Count
+        //            && alert.AlertType == "air_raid")
+        //            regions[alert.LocationOblastUid].IsAlert = true;
+        //    }
+
+        //    DrawMap();
+        //}
     }
 }
