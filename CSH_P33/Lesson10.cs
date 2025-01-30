@@ -23,22 +23,22 @@ namespace CSH_P33
             if(dateTime < DateTime.Now) { /* Дата вже пройшла */ }
             else { /* Дата ще не настала */ }
 
-            //HttpClient client = new HttpClient();
-            //string url = "https://meowfacts.herokuapp.com/";
-            //var response = client.GetAsync(url).Result;
-            //if(response.IsSuccessStatusCode)
-            //{
-            //    Console.WriteLine(response);
-            //    string data = response.Content.ReadAsStringAsync().Result;
-            //    Console.WriteLine(data);
-            //    MeowFactsResponse? facts = JsonSerializer.Deserialize<MeowFactsResponse>(data);
-            //    if(facts is null) throw new NullReferenceException();
+            HttpClient client = new HttpClient();
+            string url = "https://meowfacts.herokuapp.com/";
+            var response = client.GetAsync(url).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine(response);
+                string data = response.Content.ReadAsStringAsync().Result;
+                Console.WriteLine(data);
+                MeowFactsResponse? facts = JsonSerializer.Deserialize<MeowFactsResponse>(data);
+                if (facts is null) throw new NullReferenceException();
 
-            //    foreach(var fact in facts.Data)
-            //    {
-            //        Console.WriteLine(fact);
-            //    }
-            //}
+                foreach (var fact in facts.Data)
+                {
+                    Console.WriteLine(fact);
+                }
+            }
         }
     }
 }
